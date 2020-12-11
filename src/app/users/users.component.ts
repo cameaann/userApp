@@ -63,7 +63,6 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(user:User){
-    console.log(user);
     this.userService.deleteUser(user);
     this.ngOnInit();
   }

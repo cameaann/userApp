@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from '../user-model';
 import { UserService } from '../user.service';
+import { from } from 'rxjs';
 
 const shortid = require('shortid');
 
@@ -14,9 +16,11 @@ export class CreateUserFormComponent implements OnInit {
   userForm: FormGroup;
   user:User;
   statuses: string[]=['client', 'partner', 'admin'];
+  message: string;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -31,7 +35,8 @@ export class CreateUserFormComponent implements OnInit {
       email:[null, [Validators.email,
                     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone:[null, [Validators.required,
-                    Validators.pattern(new RegExp("[0-9 ]{11}"))]],
+                    Validators.pattern("^((\\+91-?)|0)?[0-9]{11}$"),
+                    Validators.maxLength(11)]],
       dateOfCreation: [new Date()],
       dateOfChange:[new Date()]
     });
@@ -40,18 +45,22 @@ export class CreateUserFormComponent implements OnInit {
 
   onChanges():void{
     this.userForm.valueChanges.subscribe(val => {
-        this.userService.setLocalUser(val);     
+        this.userService.setLocalUser(val); 
     })
+    
   }
 
   onSubmit(event):void{
     if(event.submitter.name == "create"){      
       this.userService.saveUser(this.userForm.value);
-      this.userForm.reset();      
     }
     if(event.submitter.name == "cancel"){
       this.userService.cancelUser();
     }
+  }
+
+  backToUsers(){
+    this.router.navigate(['/users']);
   }
 
   get firstName() { return this.userForm.get('firstName'); }

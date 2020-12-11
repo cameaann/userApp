@@ -14,7 +14,7 @@ export class EditUserComponent implements OnInit {
   userForm: FormGroup;
   users$: Observable<User[]>;
   user = this.userService.loadUser();
-  statuses: string[]=['клиент', 'партнер', 'администратор'];
+  statuses: string[]=['client', 'partner', 'admin'];
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
@@ -32,7 +32,8 @@ export class EditUserComponent implements OnInit {
       email:[this.user.email, [Validators.email,
                               Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone:[this.user.phone, [Validators.required,
-                                Validators.pattern(new RegExp("[0-9 ]{11}"))]],
+                                Validators.pattern("^((\\+91-?)|0)?[0-9]{11}$"),
+                                Validators.maxLength(11)]],
       dateOfCreation: [this.user.dateOfCreation],
       dateOfChange:[new Date()]
     });
@@ -48,11 +49,15 @@ export class EditUserComponent implements OnInit {
   onSubmit(event):void{
     if(event.submitter.name == "save"){      
       this.userService.saveChanges(this.userForm.value);
-      this.router.navigate(['/users']);   
+        
     }
     if(event.submitter.name == "cancel"){
       this.userService.cancelUser();
     }
+  }
+
+  backToUsers(){
+    this.router.navigate(['/users']); 
   }
 
   

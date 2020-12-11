@@ -1,12 +1,12 @@
 <div class="form_container">
     <h1 class="primary-heading u-center u-bottom-medium">Новый пользователь</h1>
 
-    <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)=onSubmit($event) class="form">
+    <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)=onSubmit($event) class="form"  #formDir="ngForm">
+        <div [hidden]="formDir.submitted">
             <div class="cross-validation"
                 [class.cross-validation-error]="userForm.errors?.identityRevealed && (userForm.touched || userForm.dirty)">
                 <mat-label for="name" class="form__label">Имя</mat-label>
-                <input id="firstName" class="form__input" formControlName="firstName" name="firstName"
-                    required>
+                <input id="firstName" class="form__input" formControlName="firstName" name="firstName" required>
 
                 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
                     <div *ngIf="firstName.errors.required">Поле "Имя" должно быть заполнено.</div>
@@ -59,5 +59,13 @@
                     <span class="text">Создать</span>
                 </button>
             </div>
+        </div>
     </form>
+    <div class="submitted-message" *ngIf="formDir.submitted">
+        <p class="message">Вы добавили пользователя {{userForm.value.firstName}}!</p>
+        <button class="btn" (click)="formDir.resetForm({})">Добавить нового пользователя</button>
+        <button type="button" (click)=backToUsers() name="cancel" class="btn btn-cancel">
+            <span class="text">К списку пользователей</span>
+        </button>
+    </div>
 </div>

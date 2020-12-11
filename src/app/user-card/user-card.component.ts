@@ -28,7 +28,6 @@ export class UserCardComponent implements OnInit {
   }
 
   editUser(){
-    console.log(this.user);
     this.userService.editUser(this.user);    
   }
 

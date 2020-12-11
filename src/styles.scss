@@ -62,7 +62,8 @@ $userApp-theme: mat-light-theme($userApp-primary, $userApp-accent, $userApp-warn
         @media screen and(min-width:112.5em){@content;} //1800px
     }
 }
-
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 *,
 *::after,
@@ -236,12 +237,23 @@ body{
         width:100%;
         display:flex;
         justify-content: space-evenly;
-    }
-   
+    }   
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.submitted-message{
+    margin: auto;
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
 
+    .message{
+        font-size: 2rem;
+        text-align: center;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+}
 
 .form-container{
     padding: 2rem;
