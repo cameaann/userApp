@@ -1,0 +1,63 @@
+<div class="form_container">
+    <h1 class="primary-heading u-center u-bottom-medium">Новый пользователь</h1>
+
+    <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)=onSubmit($event) class="form">
+            <div class="cross-validation"
+                [class.cross-validation-error]="userForm.errors?.identityRevealed && (userForm.touched || userForm.dirty)">
+                <mat-label for="name" class="form__label">Имя</mat-label>
+                <input id="firstName" class="form__input" formControlName="firstName" name="firstName"
+                    required>
+
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                    <div *ngIf="firstName.errors.required">Поле "Имя" должно быть заполнено.</div>
+                    <div *ngIf="firstName.errors.minlength">Имя должно быть не менее 3 символов длиной.</div>
+                </div>
+
+                <mat-label for="middleName" class="form__label">Отчество</mat-label>
+                <input type="input" class="form__input" formControlName="middleName" name="middleName" required>
+
+                <mat-label for="lastName" class="form__label">Фамилия</mat-label>
+                <input id="lastName" class="form__input" formControlName="lastName" name="lastname" required>
+
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+                    <div *ngIf="lastName.errors.required">Поле "Фамилия" должно быть заполнено.</div>
+                    <div *ngIf="lastName.errors.minlength">Фамилия должна быть не менее 2 символов длиной.</div>
+                </div>
+
+                <mat-label for="phone" class="form__label">Телефон</mat-label>
+                <input id="phone" class="form__input" formControlName="phone" required>
+
+                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+                    <div *ngIf="phone.errors.required">Поле "Телефон" должно быть заполнено.</div>
+                    <div *ngIf="phone.errors.pattern">Введите правильный номер телефона.</div>
+                </div>
+
+
+                <mat-label for="email" class="form__label">email</mat-label>
+                <input id="email" class="form__input" formControlName="email" required>
+
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div *ngIf="email.errors.required">Поле "Email" должно быть заполнено.</div>
+                    <div *ngIf="email.errors.pattern">Введите правильный Email.</div>
+                </div>
+
+                <mat-label for="status" class="form__label">Статус</mat-label>
+                <mat-select formControlName="status" name="status" id="" class="form__select">
+                    <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
+                </mat-select>
+
+                <div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+                    <div *ngIf="status.errors.required">Необходимо указать статус пользователя.</div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" name="cancel" class="btn btn-cancel">
+                    <span class="text">Отмена</span>
+                </button>
+                <button type="submit" name="create" class="btn btn-create" [disabled]="userForm.invalid">
+                    <span class="text">Создать</span>
+                </button>
+            </div>
+    </form>
+</div>

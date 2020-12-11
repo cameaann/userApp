@@ -1,0 +1,21 @@
+<a class="user user__container" (click)=editUser()>
+    <div class="user user__fio">
+        <div class="name">{{user.lastName}}</div>
+        <div class="name">{{user.firstName}}</div>
+        <div class="name">{{user.middleName}}</div>
+    </div>
+    <div class="user user__tabCell">{{user.phone}}</div>
+    <div class="user user__tabCell">{{user.email}}</div>        
+    <div class="user user__tabCell">{{user.status}}</div>
+    <div class="btn__box  u_end">
+        <button class="btn btn-edit" (click)="editUser()">
+            <span class="text-icon">Редактировать</span>
+            <img src="assets/imgs/edit-icon.svg" alt="edit" class="icon">
+        </button> 
+        <button class="btn btn-delete" (click)="deleteUser(user)">
+            <span class="text-icon">Удалить</span>
+            <img src="assets/imgs/delete-icon.svg" alt="delete" class="icon">
+        </button>
+    </div>
+            
+</a>

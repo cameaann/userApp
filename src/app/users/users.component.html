@@ -1,0 +1,36 @@
+<div class="main__container">
+    <h1 class="primary-heading u-center u-bottom-medium">Пользователи</h1>
+    <form [formGroup]="searchForm" autocomplete="off" novalidate class="form">
+        <label for="search-text" class="form__label">Поиск</label>
+        <input type="text" class="form__input" formControlName="searchText" name="searchText" 
+        id="search-text" placeholder="Введите телефон или email" autofocus>
+        <div class="btn__container">
+            <button type="button" class="btn btn-add" [hidden]="showDemo" (click)="setDemoUsers()">Загрузить демо пользователей</button>
+            <button type="button" class="btn btn-add" (click)="addUser()">Добавить пользователя</button>
+        </div>
+    </form>
+    <div class="checkStatus">
+        <div *ngFor="let status of status">
+            <mat-checkbox class="chBox"[checked]="allChecked" (change)="updateList(status.id)" >{{status.name}}</mat-checkbox>
+        </div>
+    </div>
+   
+   
+    <div class="usersTab">
+        <div class="user__container user__container-hr">  
+            <div class="user columnName">ФИО</div>
+            <div class="user columnName">Телефон</div>
+            <div class="user columnName">Email</div>
+            <div class="user columnName">Статус</div>
+        </div>
+    
+             <app-user-card *ngFor='let user of (users$ | appFilter: searchText | statusFilter: searchStatus)'
+             [user]="user" (userChanged)="deleteUser($event)"></app-user-card>
+
+            
+    </div>
+       
+
+</div>
+
+

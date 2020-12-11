@@ -1,1 +1,414 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$userApp-primary: mat-palette($mat-indigo);
+$userApp-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$userApp-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$userApp-theme: mat-light-theme($userApp-primary, $userApp-accent, $userApp-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($userApp-theme);
+
 /* You can add global styles to this file, and also import other style files */
+//Media Query Manager
+/*
+0-360:phone-moto
+360-600px: Phone
+600-900px: Tablet portrait
+900-1200px: Tablet landscape
+[1200-1800px] - is where our normal styles apply
+1800px: big desktop
+*/
+
+/* $breakpoint arguement choices:
+- phone-moto
+- phone
+- tab-port
+- tab-land
+- big-desktop
+*/
+
+@mixin response($breakpoint){
+    @if $breakpoint == phone-moto{
+        @media screen and (max-width:22.5em) {@content;}//360px
+    }
+    @if $breakpoint == phone{
+        @media screen and (max-width:37.5em) {@content;} //600px           
+    }
+    @if $breakpoint == tab-port{
+        @media screen and (max-width:56.25em){@content;} //900px
+    }
+    @if $breakpoint == tab-land{
+        @media screen and(max-width:75em){@content;}  //1200px
+    }
+    @if $breakpoint == big-desktop{
+        @media screen and(min-width:112.5em){@content;} //1800px
+    }
+}
+
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html{
+    //1 rem = 10px  10px/16px=62.5% width=1200-1800px
+    font-size: 62.5%;
+
+    @include response(tab-land){ //width<1200px (900-1200px)
+        font-size:56.25%; //1rem=9px 9px/16px=56.25%
+    }
+
+    @include response(tab-port){ //width<900px (600-900px)
+        font-size: 50%; //1rem=8px 8px/16px=50%
+    }
+
+    @include response(phone){
+        font-size: 44%; //1rem=7px 7px/16px=44% (360-600px)
+    }
+    @include response(phone-moto){
+        font-size: 31%; //1rem=5px 5px/16px=31% (320px)
+    }
+     @include response(big-desktop){//width> 1800px ?
+        font-size: 75%; //1rem=12px 12/16=
+    }   
+}
+
+body{
+    box-sizing: border-box;
+}
+
+.main__container{
+    margin:auto 10rem; 
+    
+    
+    @include response(tab-port){
+        margin:auto 5rem; 
+    }
+
+    @include response(phone){
+        margin:auto 3rem; 
+    }
+
+}
+
+
+
+.primary-heading{
+    font-size: 3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2rem;
+    color:grey;
+}
+
+.u-center{
+    text-align: center;
+    margin-top: 5rem;
+}
+.u-bottom-medium{
+    margin-bottom: 5rem;
+
+    @include response(phone){
+        margin-bottom: 2.5rem;
+    }
+}
+
+.u_end{
+    justify-self: end;
+}
+
+.btn{
+    position: relative;
+    padding:1rem;
+    border-radius: 3px;
+    border: 1px solid gray;
+    margin: 10px;
+    font-size: 2rem;
+    &,
+    &:link,
+    &:visited{
+        transition: all .2s;
+    }
+  
+    &:disabled{
+        background-color: rgb(221, 216, 216);
+        color:rgb(165, 164, 164);
+    }
+    
+    &:focus{
+        outline: none;
+    }
+
+    &:hover{
+        &:not(:disabled){
+            transform: translateY(-3px);
+            box-shadow: 0 1rem 2rem rgba(black, .2);
+            cursor: pointer;
+
+            &:active,
+            &:focus{
+                outline:none;
+                transform: translateY(3px);
+                box-shadow: 0 .5rem 1rem rgba(black, .2);
+
+                &::after{
+                    transform: translateY(0);
+                    outline:none;
+                }
+            }          
+        }       
+    }
+    &-delete{
+        @include response(phone){        
+            margin: 0;
+        }
+    }
+
+    &-edit{
+        margin-right: 1rem;
+    }
+
+    &-edit:hover span,
+    &-delete:hover span{
+        position: absolute;
+        display: inline-block;
+        background-color: grey;
+        transform: translate(-35%,-50%);
+        top:-2.5rem;
+        font-family: 'Open Sans';
+        font-size: 1.5rem;
+        padding: .5rem;
+        border-radius: 3px;
+        color:white;
+        cursor: pointer;
+    }  
+
+    .text-icon{
+        display: none;
+    }
+
+    .icon{
+        width: 3rem;
+        height: 3rem;
+    }
+
+    &__box{
+        display: flex;
+
+        @include response(phone){
+            display: block;
+            }
+
+    }
+
+    &__container{
+        width:100%;
+        display:flex;
+        justify-content: space-evenly;
+    }
+   
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.form-container{
+    padding: 2rem;
+    margin: auto 3rem;
+}
+
+.form{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    color: gray;
+    display:flex;
+    margin: 0 auto;
+    width: 40%;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__input, &__select{
+        padding: 1rem 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid grey;
+        width:100%;
+        
+        &[type="text" i]{
+            font-size: 2rem;
+        }
+
+        &:active{
+            border: 1px solid rgb(110, 110, 110);
+        }
+    
+        @include response(phone){
+            width: 100%;
+        }
+    }
+
+    &__label{
+        width:100%;
+        margin-bottom: 1rem;
+    }
+    @include response(tab-port){
+        width: 50%;
+    }
+
+    @include response(phone){
+        width: 80%;
+    }
+    
+}
+.usersTab{
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+
+    @include response(phone){
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+    }
+
+    @include response(tab-port){
+        margin-top: 7rem;
+        margin-bottom: 7rem;
+    }
+}
+
+.user{
+    position: relative;
+    font-size: 2rem;
+
+    &__container{
+        width:100%;
+        display:grid;
+        grid-template-columns: 35rem 1fr 1fr 1fr .5fr;
+        grid-auto-columns: 1fr;
+        column-gap: 2rem;
+        justify-items: start;
+        padding: 1rem;
+        cursor: pointer;
+
+        &:hover{
+            background-color: rgb(243, 237, 237);
+        }
+        &-hr{
+            border-bottom: 1px solid gray;
+            &:hover{
+                background-color:white;
+            }
+        }
+
+        @include response(tab-land){
+            grid-template-columns: 25rem 1fr 1fr 1fr .5fr;
+        }
+        @include response(tab-port){
+            grid-template-columns: 25rem 10rem 15rem 12rem 1fr;
+        }
+
+        @include response(phone){
+            padding: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 0;
+        }       
+       
+    }
+    &__tabCell{
+        justify-self: start;
+        align-self: center;
+
+        @include response(phone){
+            display: none;
+        }
+    }
+    &__fio{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .name{
+            margin-right: 1rem;            
+        }
+         
+        @include response(phone){
+            grid-column: 1/2;
+        }
+    }
+    @include response(tab-land){
+        font-size: 1.5rem;
+    }
+    @include response(phone){
+        font-size: 2rem;
+    }
+    @include response(phone-moto){
+        font-size: 3rem;
+    }  
+    
+}
+.columnName{
+    font-weight: bold;
+    color: gray;
+    justify-self: start;
+   
+              
+    @include response(phone){
+        justify-self: start;
+        &:not(:first-child){ 
+            display: none;
+        }
+    }
+}
+
+.checkStatus{
+    font-size: 2rem;
+    width:50%;
+    margin:2rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.chBox{
+    margin-right: 1rem;
+}
+
+.cross-validation-error input {
+    border-left: 5px solid red;
+  }
+
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+  .alert-danger{
+      color:#a94442;
+      background-color:#f2dede;
+      border-color:#ebccd1;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+  .alert-danger hr{
+      border-top-color:#e4b9c0}
