@@ -13,7 +13,7 @@ const shortid = require('shortid');
 export class CreateUserFormComponent implements OnInit {
   userForm: FormGroup;
   user:User;
-  statuses: string[]=['клиент', 'партнер', 'администратор'];
+  statuses: string[]=['client', 'partner', 'admin'];
 
   constructor(private fb: FormBuilder,
               private userService: UserService) { }

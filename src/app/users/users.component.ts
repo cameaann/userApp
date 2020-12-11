@@ -17,9 +17,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class UsersComponent implements OnInit {
 
   status=[
-    {id:0, name:'администратор', check: false},
-    {id:1, name:'партнер', check: false},
-    {id:2, name:'клиент', check: false}
+    {id:0, name:'admin', check: false},
+    {id:1, name:'partner', check: false},
+    {id:2, name:'client', check: false}
   ];
 
   searchText;

@@ -6,7 +6,7 @@ export const USERS: any = [
 		"middleName":"Витальевич",
 		"phone": "5553334422",
 		"email": "adrg@gmail.com",
-		"status": "клиент"
+		"status": "client"
 	},
 	{
 		"id": "6614058866860645149",
@@ -15,7 +15,7 @@ export const USERS: any = [
 		"middleName":"Николаевна",
 		"phone": "6667775656",
 		"email": "tat@gmail.com",
-		"status": "партнер"
+		"status": "partner"
 	},
 	{
 		"id": "6614054409580537115",
@@ -24,5 +24,5 @@ export const USERS: any = [
 		"middleName":"Сергеевич",
 		"phone": "2233447789",
 		"email": "fty@gmail.com",
-		"status": "администратор"
+		"status": "admin"
 	}]

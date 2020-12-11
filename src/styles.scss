@@ -211,6 +211,16 @@ body{
     .icon{
         width: 3rem;
         height: 3rem;
+
+        @include response(tab-port){        
+            width: 2rem;
+            height: 2rem;
+        }
+
+        @include response(phone){        
+            width: 3rem;
+            height: 3rem;
+        }
     }
 
     &__box{
