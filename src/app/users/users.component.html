@@ -11,7 +11,7 @@
     </form>
     <div class="checkStatus">
         <div *ngFor="let status of status">
-            <mat-checkbox class="chBox"[checked]="allChecked" (change)="updateList(status.id)" >{{status.name}}</mat-checkbox>
+            <mat-checkbox class="chBox" (change)="updateList(status.id)" >{{status.name}}</mat-checkbox>
         </div>
     </div>
    
