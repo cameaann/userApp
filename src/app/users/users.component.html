@@ -23,10 +23,10 @@
             <div class="user columnName">Email</div>
             <div class="user columnName">Статус</div>
         </div>
-    
-             <app-user-card *ngFor='let user of (users$ | appFilter: searchText | statusFilter: searchStatus)'
+        <div *ngIf = "users$">
+            <app-user-card *ngFor='let user of (users$ | appFilter: searchText | statusFilter: searchStatus)'
              [user]="user" (userChanged)="deleteUser($event)"></app-user-card>
-
+        </div>            
             
     </div>
        
